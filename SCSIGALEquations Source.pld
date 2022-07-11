@@ -1,0 +1,75 @@
+Name     SCSIGALEquations ; 
+PartNo   00 ; 
+Date     10/10/10 ;
+Revision 01 ;
+Designer Engineer ;
+Company  None ;
+Assembly None ; 
+Location  ;
+Device   g16v8;
+
+
+/* Inputs */
+PIN 2 = NOT_LDS;
+PIN 3 = NOT_UDS;
+PIN 4 = READ;
+PIN 5 = NOT_SLN;
+PIN 6 = NOT_SHN;
+PIN 7 = BA10;
+PIN 8 = BA9;
+PIN 1 = CPUCK;
+
+/* Outputs */
+PIN 12 = INT1;
+PIN 13 = INT2;
+PIN 14 = NOT_DTACK;
+PIN 15 = NOT_CS;
+PIN 16 = NOT_DACK;
+PIN 17 = WR;
+PIN 18 = RD;
+PIN 19 = HIGH_EN;
+
+/*FIELD FF_OUT = [INT2,INT1];
+
+
+$DEFINE s0 'b'10
+$DEFINE s1 'b'11
+$DEFINE s2 'b'01
+
+sequence FF_OUT {
+	present s0
+		if NOT_SLN next s0;
+		if !NOT_SLN next s1;
+    present s1
+        if NOT_SLN next s0;
+        if !NOT_SLN next s2;
+    present s2
+        if NOT_SLN next s0;
+        if !NOT_SLN next s2;
+}*/
+
+/*1. FF Out is off (s0)
+2. If D is high and CPUCK pulses, go to s1 (same as s0)
+3. If D is high and CPUCK pulses again, go to s2 (which sets FF to on)
+4. If D is still high and CPUCK pulses, ignore it and stay in s2. If D goes low IN ANY STATE; NOT JUST S2 (regardless of CPUCK), go back to s0 and start over.*/
+
+/*HIGH_EN = !NOT_LDS # NOT_UDS;*/
+
+HIGH_EN = !(NOT_LDS & !NOT_UDS);
+RD = !READ # (NOT_SLN & !(!NOT_SHN & BA10));
+WR = READ # (NOT_SLN & !(!NOT_SHN & BA10));
+NOT_DACK = !BA9 # !(!NOT_SHN & BA10);
+NOT_CS = BA9 # !(!NOT_SHN & BA10);
+
+INT1.D = !NOT_SLN;
+/*INT1.AR = NOT_SLN;
+INT1.CK = CPUCK;*/
+
+INT2.D = INT1;
+/*INT2.AR = NOT_SLN;
+INT2.CK = CPUCK;*/
+
+
+/*INT1 = (!(!NOT_SLN NAND CPUCK) NOR PRESET) NAND*/
+NOT_DTACK = NOT_DACK & NOT_CS & ((!NOT_SLN & !INT2) # (NOT_SLN & 'b'1));
+/*NOT_DTACK = NOT_DACK & NOT_CS & INT2;*/
