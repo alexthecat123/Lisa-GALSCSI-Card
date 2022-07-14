@@ -17,7 +17,7 @@ I use [JLCPCB](https://jlcpcb.com/) for all of my boards due to the low price an
 I designed this SCSI card using EasyEDA. If you want to customize the board to your own needs, the design files can be found [here](https://oshwlab.com/AlexTheCat123/custom-lisa-scsi-card).
 
 # Required Parts
-Check [this DigiKey list](https://www.digikey.com/en/mylists/list/X12U54PLCP) for most of the required parts. Everything else can be found on eBay: The F-RAM chip (an FM1608) can be found [here](https://www.ebay.com/itm/401858081542), the 5380 SCSI controller chip can be found [here](https://www.ebay.com/itm/164880421011), and the two  resistor networks for termination can be found [here](https://www.ebay.com/itm/223907117513).
+Check [this DigiKey cart](https://www.digikey.com/short/3rd0c23v) for most of the required parts. Everything else can be found on eBay: The F-RAM chip (an FM1608) can be found [here](https://www.ebay.com/itm/401858081542), the 5380 SCSI controller chip can be found [here](https://www.ebay.com/itm/164880421011), and the two  resistor networks for termination can be found [here](https://www.ebay.com/itm/223907117513).
 
 
 # Assembly and Use
